@@ -11,7 +11,7 @@ FN:Founder - pushpender Sharma
 ORG:Bexexglobal
 TEL:+91 9582390987
 EMAIL:hello@bexexglobal.com
-URL:https://bexexglobal.com
+URL:www.bexexglobal.com
 ADR:;;J4 Gali no.12 ;Shiv Ram Park; Nangloi; West-Delhi 110091;India
 END:VCARD`;
 // Route to display QR in browser
