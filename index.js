@@ -7,12 +7,13 @@ const PORT = 3000;
 // vCard contact info
 const vcard = `BEGIN:VCARD
 VERSION:3.0
-FN:Founder - pushpender Sharma
-ORG:Bexexglobal
+FN: Pushpender Sharma
+TITLE: Founder & CEO
+ORG:Bexex Global - EHS Solutions
 TEL:+91 9582390987
 EMAIL:hello@bexexglobal.com
 URL:www.bexexglobal.com
-ADR:;;J4 Gali no.12 ;Shiv Ram Park; Nangloi; West-Delhi 110091;India
+ADR:New Delhi, India
 END:VCARD`;
 // Route to display QR in browser
 app.get("/", async (req, res) => {
