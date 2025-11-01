@@ -4,42 +4,46 @@ import QRCode from "qrcode";
 const app = express();
 const PORT = 3000;
 
+// vCard contact info
+const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Founder - pushpender Sharma
+ORG:Bexexglobal
+TEL:+91 9582390987
+EMAIL:hello@bexexglobal.com
+URL:https://bexex.in/
+ADR:;;J4 Gali no.12 ;Shiv Ram Park; Nangloi; West-Delhi 110091;India
+END:VCARD`;
+// Route to display QR in browser
 app.get("/", async (req, res) => {
   try {
-    // ✅ Replace this with your phone number
-    const phoneNumber = "+919876543210"; 
-    const telLink = `tel:${phoneNumber}`;
-
-    // ✅ Generate QR code with larger size
-    const qrOptions = {
-      width: 400,
-      margin: 2,
-      color: {
-        dark: "#000000",
-        light: "#ffffff"
-      }
-    };
-
-    const qrImage = await QRCode.toDataURL(telLink, qrOptions);
-
-    
-    // ✅ Display on webpage
+    const qrDataUrl = await QRCode.toDataURL(vcard);
     const html = `
-      <html>
-        <head>
-          <title>Call QR Code</title>
-        </head>
-        <body style="text-align:center; font-family:sans-serif; background:#f8f9fa;">
-          <img src="${qrImage}" alt="QR Code" style="width:250px; height:250px;" />
-        </body>
-      </html>
+      <h2>Contact QR Code</h2>
+      <img src="${qrDataUrl}" alt="QR Code" />
+      <br><br>
+      <a href="/download" download="contact_qr.png">
+        <button>Download QR Code</button>
+      </a>
     `;
     res.send(html);
   } catch (err) {
-    res.status(500).send("Error generating QR Code: " + err);
+    console.error(err);
+    res.status(500).send("Error generating QR code");
   }
 });
 
-app.listen(PORT, () =>
-  console.log(`✅ Server running at http://localhost:${PORT}/qrcode`)
-);
+// Route to download QR as PNG
+app.get("/download", async (req, res) => {
+  try {
+    const qrBuffer = await QRCode.toBuffer(vcard);
+    res.setHeader("Content-Disposition", "attachment; filename=contact_qr.png");
+    res.setHeader("Content-Type", "image/png");
+    res.send(qrBuffer);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error downloading QR code");
+  }
+});
+
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}/qr`));
