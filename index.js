@@ -4,7 +4,7 @@ import QRCode from "qrcode";
 const app = express();
 const PORT = 3000;
 
-app.get("/qrcode", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     // ✅ Replace this with your phone number
     const phoneNumber = "+919876543210"; 
